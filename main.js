@@ -58,23 +58,38 @@ function atualizar(){
 
 }
 
-function atualizar(){
-if(teclas["ArrowLeft"]) player.x -= player.velocidade;
-if(teclas["ArrowRight"]) player.x += player.velocidade;
-//Movimentação no eixo y
-if(teclas["ArrowDown"]) player.y += player.velocidade;
-if(teclas["ArrowUp"]) player.y -= player.velocidade;
-}
-// Limpar a tela e criar o personagem
-function desenhar(){
-ctx.clearRect(0,0, canvas.width, canvas.height);
-ctx.fillStyle = player.cor;
-ctx.fillRect (player.x, player.y, player.tamanho, player.tamanho);
-}
-//iniciar o jogo
-function loop(){
-    atualizar();
-    desenhar();
-    requestAnimationFrame(loop);
-}
-loop();
+
+
+for (let i = 0; i < obstaculos.length; i++) {
+    let obs = obstaculos [i];
+    obs.y += velocidadeGlobal;
+
+ // Verficação da Colisão
+ if (player.x < obs.x + obs.tamanho &&
+     player.x + player.tamanho > obs.x &&
+     player.y < obs.y + obs.tamanho &&
+     player.y + player.tamanho > obs.y) {
+
+        finalizarJogo();
+  {
+
+  // Pontuação e Limpeza
+  if (obs.y > canvas.height) { 
+      obstaculos.splide(i, 1);
+      i--;
+      pontuação++;
+      spanPlacar.innerText = pontuacao;
+     }
+   }
+ }
+
+
+
+
+
+
+
+
+
+
+   
